@@ -1,4 +1,14 @@
+
 # Finetune AlexNet with Tensorflow 1.0
+
+**Note**: 
+This repository is adapted from (https://github.com/kratzert/finetune_alexnet_with_tensorflow)
+
+You can now also train a simple MLP and LeNet.
+
+It was developed in the spirit to serve as tutorial material, to get started with Tensorflow.
+The dataset used is NotMNIST available [here](http://yaroslavvb.blogspot.fr/2011/09/notmnist-dataset.html)
+
 
 This repository contains all the code needed to finetune [AlexNet](http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf) on any arbitrary dataset. Beside the comments in the code itself, I also wrote an article which you can fine [here](https://kratzert.github.io/2017/02/24/finetuning-alexnet-with-tensorflow.html) with further explanation.
 
@@ -26,6 +36,14 @@ The code has TensorFlows summaries implemented so that you can follow the traini
 - `caffe_classes.py`: List of the 1000 class names of ImageNet (copied from [here](http://www.cs.toronto.edu/~guerzhoy/tf_alexnet/)).
 - `validate_alexnet_on_imagenet.ipynb`: Notebook to test the correct implementation of AlexNet and the pretrained weights on some images from the ImageNet database.
 - `images/*`: contains three example images, needed for the notebook.
+
+## Additional content
+- `MLP.py`: Class with the graph definition of a simple MLP (Multi Layer Perceptron)
+- `LeNet.py`: Class with the graph definition of LeNet
+- `train_MLP.py`: Script to train an MLP
+- `train_MLP_tensorboard.py`: Script to train an MLP while outputing training progress for tensorboard
+- `train_LeNet.py`: Script to train LeNet
+- `freeze_graph.py`: Script to export a trained graph
 
 ## Usage
 
