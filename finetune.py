@@ -23,25 +23,25 @@ Configuration settings
 """
 
 # Path to the textfiles for the trainings and validation set
-train_file = '/path/to/train.txt'
-val_file = '/path/to/val.txt'
+train_file = '../data-notMNIST/train.txt'
+val_file = '../data-notMNIST/validation.txt'
 
 # Learning params
 learning_rate = 0.01
-num_epochs = 10
+num_epochs = 20
 batch_size = 128
 
 # Network params
 dropout_rate = 0.5
-num_classes = 2
-train_layers = ['fc8', 'fc7']
+num_classes = 10
+train_layers = ['fc8']
 
 # How often we want to write the tf.summary data to disk
 display_step = 1
 
 # Path for tf.summary.FileWriter and to store model checkpoints
-filewriter_path = "/tmp/finetune_alexnet/dogs_vs_cats"
-checkpoint_path = "/tmp/finetune_alexnet/"
+filewriter_path = "./output"
+checkpoint_path = "./output"
 
 # Create parent path if it doesn't exist
 if not os.path.isdir(checkpoint_path): os.mkdir(checkpoint_path)
@@ -106,8 +106,11 @@ saver = tf.train.Saver()
 
 # Initalize the data generator seperately for the training and validation set
 train_generator = ImageDataGenerator(train_file, 
-                                     horizontal_flip = True, shuffle = True)
-val_generator = ImageDataGenerator(val_file, shuffle = False) 
+                                     horizontal_flip = True, shuffle = True,
+                                     scale_size=(227, 227),
+                                     nb_classes=num_classes)
+val_generator = ImageDataGenerator(val_file, shuffle = False, scale_size=(227, 227), nb_classes=num_classes)
+
 
 # Get the number of training/validation steps per epoch
 train_batches_per_epoch = np.floor(train_generator.data_size / batch_size).astype(np.int16)
@@ -124,6 +127,12 @@ with tf.Session() as sess:
   
   # Load the pretrained weights into the non-trainable layer
   model.load_initial_weights(sess)
+  
+  # To continue training from one of your checkpoints
+  # saver.restore(sess, "./output/model_epoch10.ckpt")
+  
+  #Export trained model
+  # tf.train.write_graph(sess.graph.as_graph_def(), "./alexNet_trained", "graph.pb") 
   
   print("{} Start training...".format(datetime.now()))
   print("{} Open Tensorboard at --logdir {}".format(datetime.now(), 
