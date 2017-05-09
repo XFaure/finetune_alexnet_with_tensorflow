@@ -15,9 +15,9 @@ script:
 The pretrained weights can be downloaded here and should be placed in the same folder: 
 - http://www.cs.toronto.edu/~guerzhoy/tf_alexnet/  
 
-@author: Frederik Kratzert (contact: f.kratzert(at)gmail.com)
+Author: Frederik Kratzert 
+contact: f.kratzert(at)gmail.com
 """
-
 import tensorflow as tf
 import numpy as np
 
