@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+import os
 
 """
 This code is highly influenced by the implementation of:
@@ -9,6 +10,13 @@ shuffling of the data.
 The other source of inspiration is the ImageDataGenerator by @fchollet in the 
 Keras library. But as I needed BGR color format for fine-tuneing AlexNet I 
 wrote my own little generator.
+
+Author: Frederik Kratzert 
+contact: f.kratzert(at)gmail.com
+
+Modified : Xavier Faure
+contact: xavier.faure42(at)gmail.com
+
 """
 
 class ImageDataGenerator:
@@ -24,6 +32,7 @@ class ImageDataGenerator:
         self.mean = mean
         self.scale_size = scale_size
         self.pointer = 0
+        self.pathDir = os.path.dirname(class_list)
         
         self.read_class_list(class_list)
         
@@ -86,7 +95,7 @@ class ImageDataGenerator:
         # Read images
         images = np.ndarray([batch_size, self.scale_size[0], self.scale_size[1], 3])
         for i in range(len(paths)):
-            img = cv2.imread(paths[i])
+            img = cv2.imread(self.pathDir + '/' + paths[i])
             
             #flip image at random if flag is selected
             if self.horizontal_flip and np.random.random() < 0.5:
